@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WonderNest — Big Questions. Little Explorers. Endless Wonder.</title>
+<meta name="description" content="WonderNest is a safe, magical learning playground for children ages 3–11. Learn, explore, create and play — no chat, no ads, no public profiles. Parents create child-safe accounts with just a username and PIN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-star" aria-hidden="true">🌟</span>
+    <span class="brand-name">WonderNest</span>
+  </div>
+  <div class="a11y-controls" role="group" aria-label="Accessibility settings">
+    <button id="btn-textsize" class="chip" aria-pressed="false" title="Bigger text">A+ Text</button>
+    <button id="btn-contrast" class="chip" aria-pressed="false" title="High contrast">Contrast</button>
+    <button id="btn-calm" class="chip" aria-pressed="false" title="Calm mode — fewer animations">Calm</button>
+  </div>
+  <div id="account-bar" class="account-bar"></div>
+</header>
+
+<nav class="mainnav" aria-label="Main">
+  <button data-view="home" class="navbtn active"><span aria-hidden="true">🏠</span> Home</button>
+  <button data-view="learn" class="navbtn"><span aria-hidden="true">🌈</span> Learn</button>
+  <button data-view="explore" class="navbtn"><span aria-hidden="true">🚀</span> Explore</button>
+  <button data-view="create" class="navbtn"><span aria-hidden="true">🎨</span> Create</button>
+  <button data-view="play" class="navbtn"><span aria-hidden="true">🧩</span> Play</button>
+  <button data-view="adventure" class="navbtn"><span aria-hidden="true">🗺️</span> My Adventure</button>
+</nav>
+
+<main id="app">
+  <!-- HOME -->
+  <section id="view-home" class="view active">
+    <div class="hero">
+      <div class="hero-art" aria-hidden="true">
+        <span class="float f1">⭐</span><span class="float f2">☁️</span><span class="float f3">🪐</span><span class="float f4">🌈</span><span class="float f5">☁️</span>
+        <div id="nori-hero"></div>
+      </div>
+      <h1>Big Questions. Little Explorers. Endless Wonder.</h1>
+      <p class="hero-sub">Learn, create, play, and discover something amazing every day.</p>
+      <div class="hero-btns">
+        <button class="bigbtn primary" data-goto="learn">▶ Start Exploring</button>
+        <button class="bigbtn secondary" data-goto="parents">👨‍👩‍👧 Parents &amp; Grown-Ups</button>
+      </div>
+      <div id="auth-panel" class="auth-panel"></div>
+    </div>
+
+    <div class="age-picker card">
+      <h2>Who is exploring today?</h2>
+      <p class="muted">Pick an age group — WonderNest changes its activities to fit.</p>
+      <div class="age-row">
+        <button class="agebtn" data-age="little"><span class="age-emoji">🐣</span><strong>Little Explorers</strong><small>Ages 3–5</small></button>
+        <button class="agebtn" data-age="curious"><span class="age-emoji">🦊</span><strong>Curious Kids</strong><small>Ages 6–8</small></button>
+        <button class="agebtn" data-age="super"><span class="age-emoji">🦉</span><strong>Super Thinkers</strong><small>Ages 9–11</small></button>
+      </div>
+    </div>
+
+    <div class="card adventure-card">
+      <h2>🗓️ Today's Adventure</h2>
+      <div id="daily-adventure"></div>
+    </div>
+
+    <div class="worlds">
+      <button class="world w-learn" data-goto="learn"><span>🌈</span><strong>LEARN</strong><small>Math, words &amp; science games</small></button>
+      <button class="world w-explore" data-goto="explore"><span>🚀</span><strong>EXPLORE</strong><small>Space, dinos, oceans &amp; more</small></button>
+      <button class="world w-create" data-goto="create"><span>🎨</span><strong>CREATE</strong><small>Draw, color &amp; make music</small></button>
+      <button class="world w-play" data-goto="play"><span>🧩</span><strong>PLAY</strong><small>Memory &amp; pattern games</small></button>
+    </div>
+
+    <div class="card">
+      <h2>🌿 Wonder Missions</h2>
+      <p class="muted">Real-world adventures away from the screen. Finish one, earn a reward!</p>
+      <div id="missions-list" class="missions"></div>
+    </div>
+
+    <div class="card">
+      <h2>🌳 WonderNest Treehouse</h2>
+      <p class="muted">Earn stars to grow your treehouse — a new decoration every 5 stars!</p>
+      <div id="treehouse" class="treehouse"></div>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section id="view-learn" class="view">
+    <h2 class="view-title">🌈 Learn</h2>
+    <p class="nori-says"><span class="nori-mini"></span> <span id="learn-nori-text">Pick the right answer to earn stars!</span></p>
+    <div class="card" id="quiz-card"></div>
+  </section>
+
+  <!-- EXPLORE -->
+  <section id="view-explore" class="view">
+    <h2 class="view-title">🚀 Explore</h2>
+    <p class="nori-says"><span class="nori-mini"></span> Tap a card to discover a wow fact!</p>
+    <div id="explore-grid" class="explore-grid"></div>
+    <div class="card">
+      <h3>📖 Story Quest: Nori and the Lost Star</h3>
+      <div id="story-quest"></div>
+    </div>
+  </section>
+
+  <!-- CREATE -->
+  <section id="view-create" class="view">
+    <h2 class="view-title">🎨 Create</h2>
+    <div class="card">
+      <h3>🖍️ Drawing Pad</h3>
+      <div class="draw-tools">
+        <div id="draw-colors" class="draw-colors" role="group" aria-label="Colors"></div>
+        <label>Brush <input type="range" id="brush-size" min="2" max="30" value="8"></label>
+        <button id="draw-clear" class="chip">Clear</button>
+        <button id="draw-save" class="chip primary-chip">💾 Save Drawing (+1 ⭐)</button>
+      </div>
+      <canvas id="draw-canvas" width="700" height="450" aria-label="Drawing canvas"></canvas>
+    </div>
+    <div class="card">
+      <h3>🎵 Music Pads</h3>
+      <p class="muted">Tap the pads to make your own tune.</p>
+      <div id="music-pads" class="music-pads"></div>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section id="view-play" class="view">
+    <h2 class="view-title">🧩 Play</h2>
+    <div class="card">
+      <h3>🃏 Memory Match</h3>
+      <p class="muted">Find all the matching pairs to win stars!</p>
+      <div id="memory-board" class="memory-board"></div>
+      <button id="memory-restart" class="chip">🔄 New Game</button>
+      <p id="memory-status" class="status"></p>
+    </div>
+    <div class="card">
+      <h3>🔍 Pattern Detective</h3>
+      <p class="muted">What comes next in the pattern?</p>
+      <div id="pattern-game"></div>
+    </div>
+  </section>
+
+  <!-- MY ADVENTURE -->
+  <section id="view-adventure" class="view">
+    <h2 class="view-title">🗺️ My Adventure</h2>
+    <div id="adventure-content"></div>
+  </section>
+
+  <!-- PARENTS -->
+  <section id="view-parents" class="view">
+    <h2 class="view-title">👨‍👩‍👧 Parent Zone</h2>
+    <div id="parent-gate"></div>
+    <div id="parent-content" hidden>
+      <div class="card">
+        <h3>🛡️ Safety first, always</h3>
+        <ul class="safe-list">
+          <li>No public chat and no messaging between children — ever.</li>
+          <li>No public profiles, no leaderboards, no ads, and no external links for children.</li>
+          <li>Accounts use only a child-chosen username and a PIN. No child email, no real name, no personal data.</li>
+          <li>PINs are stored only as strong one-way hashes (scrypt) on the server — never in plain text.</li>
+          <li>Progress is personal: stars, badges and the treehouse celebrate your child's own journey.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔒 Privacy</h3>
+        <p>WonderNest collects the minimum needed to save progress: a username, a hashed PIN, an age group, a chosen explorer character, and activity progress. Nothing is sold or shared. A grown-up math check guards account creation and this Parent Zone.</p>
+        <h3>♿ Accessibility</h3>
+        <p>Use the controls at the top of every page for bigger text, high contrast, and calm mode (reduced motion). Buttons are large for small hands and touch screens, and the layout works on tablets, phones, and computers.</p>
+      </div>
+      <div class="card" id="parent-progress"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>WonderNest — a safe place to wonder. No chat • No ads • No public profiles • Made for ages 3–11</p>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>
